@@ -1,5 +1,6 @@
-# Main-Design-patterns
-Main Design patterns in PHP
+`Main Design patterns in PHP`
+====================
+ 
 
 Abstract Factory
 ----------------
