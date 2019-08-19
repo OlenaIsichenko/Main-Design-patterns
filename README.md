@@ -18,6 +18,7 @@ The singleton pattern is used to restrict the instantiation of a class to a sing
 
 Chain of Responsibility
 ----------------
-
+The chain of responsibility
+A method called in one object will move up a chain of objects until one is found that can properly handle the call.
 
 Цепочка обязанностей — это поведенческий паттерн проектирования, который позволяет передавать запросы последовательно по цепочке обработчиков. Каждый последующий обработчик решает, может ли он обработать запрос сам и стоит ли передавать запрос дальше по цепи.
