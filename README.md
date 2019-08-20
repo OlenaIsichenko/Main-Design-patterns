@@ -25,5 +25,6 @@ A method called in one object will move up a chain of objects until one is found
 
 Observer
 ----------------
+In the Observer pattern a subject object will notify an observer object if the subject's state changes.
 
 Наблюдатель — это поведенческий паттерн проектирования, который создаёт механизм подписки, позволяющий одним объектам следить и реагировать на события, происходящие в других объектах.
