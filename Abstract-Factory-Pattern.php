@@ -1,54 +1,41 @@
 <?php
 
-namespace DesignPatterns\AbstractFactory;
-
 /**
  * Interface of Abstaract Factory
  */
-interface AbstractBookingFactory
-{
+interface AbstractBookingFactory {
     public function bookingFlight(): AbstractBookingFlight;
-
     public function bookingHotel(): AbstractBookingHotel;
-
     public function hireCar(): AbstractHireCar;
 }
 
 /**
  * Class of concrete factory
  */
-class RomeFactory implements AbstractBookingFactory   
-{
-    public function bookingFlight(): AbstractBookingFlight
-    {
+class RomeFactory implements AbstractBookingFactory {	
+    public function bookingFlight(): AbstractBookingFlight {
 	return new RomeBookingFlight;
     }
 
-    public function bookingHotel(): AbstractBookingHotel
-    {
+    public function bookingHotel(): AbstractBookingHotel {
 	return new RomeBookingHotel;
     }
 
-    public function hireCar(): AbstractHireCar
-    {
+    public function hireCar(): AbstractHireCar {
 	return new RomeHireCar;
     }
 }
 
-class ParisFactory implements AbstractBookingFactory   
-{
-    public function bookingFlight(): AbstractBookingFlight
-    {
+class ParisFactory implements AbstractBookingFactory {
+    public function bookingFlight(): AbstractBookingFlight {
         return new ParisBookingFlight;
     }
 
-    public function bookingHotel(): AbstractBookingHotel
-    {
+    public function bookingHotel(): AbstractBookingHotel {
         return new ParisBookingHotel;
     }
 
-    public function hireCar(): AbstractHireCar
-    {
+    public function hireCar(): AbstractHireCar {
         return new ParisHireCar;
     }
 }
@@ -56,26 +43,21 @@ class ParisFactory implements AbstractBookingFactory
 /**
  * Interface of BookingFlight service
  */
-interface AbstractBookingFlight
-{
+interface AbstractBookingFlight {
     public function getPriceFlight(): float 
 }
 
 /**
  * Class of concrete BookingFlight service
  */
-class RomeBookingFlight implements AbstractBookingFlight
-{
-    public function getPriceFlight(): float
-    {
+class RomeBookingFlight implements AbstractBookingFlight {	
+    public function getPriceFlight(): float {
         return "The cost of the flight to Rome.";
     }
 }
 
-class ParisBookingFlight implements AbstractBookingFlight
-{
-    public function getPriceFlight(): float
-    {
+class ParisBookingFlight implements AbstractBookingFlight {
+    public function getPriceFlight(): float {
         return "The cost of the flight to Paris.";
     }
 }
@@ -83,26 +65,21 @@ class ParisBookingFlight implements AbstractBookingFlight
 /**
  * Interface of BookingHotel service
  */
-interface AbstractBookingHotel
-{
+interface AbstractBookingHotel {
     public function getPriceHotel(): float 
 }
 
 /**
  * Class of concrete BookingHotel service
  */
-class RomeBookingHotel implements AbstractBookingHotel
-{
-    public function getPriceHotel(): float
-    {
+class RomeBookingHotel implements AbstractBookingHotel {
+    public function getPriceHotel(): float {
         return "The hotel room price in Rome.";
     }
 }
 
-class ParisBookingHotel implements AbstractBookingHotel
-{
-    public function getPriceHotel(): float
-    {
+class ParisBookingHotel implements AbstractBookingHotel {
+    public function getPriceHotel(): float {
         return "The hotel room price in Paris.";
     }
 }
@@ -110,26 +87,21 @@ class ParisBookingHotel implements AbstractBookingHotel
 /**
  * Interface of HireCar service
  */
-interface AbstractHireCar
-{
+interface AbstractHireCar {
     public function getPriceCar(): float 
 }
 
 /**
  * Class of concrete HireCar service
  */
-class RomeHireCar implements AbstractHireCar
-{
-    public function getPriceCar(): float
-    {
+class RomeHireCar implements AbstractHireCar {
+    public function getPriceCar(): float {
         return "The car hire cost in Rome.";
     }
 }
 
-class ParisHireCar implements AbstractHireCar
-{
-    public function getPriceCar(): float
-    {
+class ParisHireCar implements AbstractHireCar {
+    public function getPriceCar(): float {
         return "The car hire cost in Paris.";
     }
 }
@@ -137,8 +109,7 @@ class ParisHireCar implements AbstractHireCar
 /**
  * Call Abstract Factory
  */
-function client(AbstractBookingFactory $booking)
-{
+function client(AbstractBookingFactory $booking) {
     $bookingFlight = $booking -> bookingFlight();
     $bookingHotel = $booking -> bookingHotel();
     $hireCar = $booking -> hireCar();
@@ -148,5 +119,3 @@ function client(AbstractBookingFactory $booking)
 
 client(new RomeFactory);
 client(new ParisFactory);
-
-?>
