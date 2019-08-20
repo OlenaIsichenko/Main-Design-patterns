@@ -24,8 +24,8 @@ class chooseLanguage extends cashDispenser {
             return this->nextStep;
         } else {
             return 'Please choose language';       
+        }
     }
-
 }
 
 class chooseCacheOrRest extends cashDispenser {
@@ -41,9 +41,9 @@ class chooseCacheOrRest extends cashDispenser {
         if(NULL != $this->step) {
             return this->nextStep;
         } else {
-            return 'Please choose cache or rest of money';       
+            return 'Please choose cache or rest of money';  
+        }
     }
-
 }
 
 class chooseAmountOfMoney extends cashDispenser {
@@ -59,9 +59,9 @@ class chooseAmountOfMoney extends cashDispenser {
         if(NULL != $this->step) {
             return this->nextStep;
         } else {
-            return 'Please choose proposed cache or choose yourself';       
+            return 'Please choose proposed cache or choose yourself';  
+        }
     }
-
 }
 
 class choosePrintCheck extends cashDispenser {
@@ -77,12 +77,12 @@ class choosePrintCheck extends cashDispenser {
         if(NULL != $this->step) {
             return this->nextStep;
         } else {
-            return 'Please choose to print the check or not';       
+            return 'Please choose to print the check or not';
+        }
     }
-
 }
 
-class CreateChoice extends cashDispenser {
+class createChoice extends cashDispenser {
 
     private $step = ['continue work', 'log out'];
     private $nextStep;
@@ -95,7 +95,7 @@ class CreateChoice extends cashDispenser {
         if(NULL != $this->step) {
             return this->nextStep;
         } else {
-            return 'Please choose the step';       
+            return 'Please choose the step';   
+        }
     }
-
 }
