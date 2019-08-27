@@ -3,7 +3,8 @@
 /**
  * Interface of Abstaract Factory
  */
-interface AbstractBookingFactory {
+interface AbstractBookingFactory
+{
     public function bookingFlight(): AbstractBookingFlight;
     public function bookingHotel(): AbstractBookingHotel;
     public function hireCar(): AbstractHireCar;
@@ -12,110 +13,148 @@ interface AbstractBookingFactory {
 /**
  * Class of concrete factory
  */
-class RomeFactory implements AbstractBookingFactory {	
-    public function bookingFlight(): AbstractBookingFlight {
-	return new RomeBookingFlight;
+class RomeFactory implements AbstractBookingFactory   
+{
+    public function bookingFlight(): AbstractBookingFlight
+    {
+        return new RomeBookingFlight;
     }
 
-    public function bookingHotel(): AbstractBookingHotel {
-	return new RomeBookingHotel;
+    public function bookingHotel(): AbstractBookingHotel
+    {
+        return new RomeBookingHotel;
     }
 
-    public function hireCar(): AbstractHireCar {
-	return new RomeHireCar;
+    public function hireCar(): AbstractHireCar
+    {
+        return new RomeHireCar;
     }
 }
 
-class ParisFactory implements AbstractBookingFactory {
-    public function bookingFlight(): AbstractBookingFlight {
+/**
+ * Class of concrete factory
+ */
+class ParisFactory implements AbstractBookingFactory   
+{
+    public function bookingFlight(): AbstractBookingFlight
+    {
         return new ParisBookingFlight;
     }
 
-    public function bookingHotel(): AbstractBookingHotel {
-        return new ParisBookingHotel;
+    public function bookingHotel(): AbstractBookingHotel
+    {
+	return new ParisBookingHotel;
     }
 
-    public function hireCar(): AbstractHireCar {
-        return new ParisHireCar;
+    public function hireCar(): AbstractHireCar
+    {
+	return new ParisHireCar;
     }
 }
 
 /**
  * Interface of BookingFlight service
  */
-interface AbstractBookingFlight {
-    public function getPriceFlight(): float 
+interface AbstractBookingFlight
+{
+    public function getPriceFlight(): string; 
 }
 
 /**
  * Class of concrete BookingFlight service
  */
-class RomeBookingFlight implements AbstractBookingFlight {	
-    public function getPriceFlight(): float {
-        return "The cost of the flight to Rome.";
+class RomeBookingFlight implements AbstractBookingFlight
+{
+    public function getPriceFlight(): string
+    {
+        return 'The cost of the flight to Rome.<br/>';
     }
 }
 
-class ParisBookingFlight implements AbstractBookingFlight {
-    public function getPriceFlight(): float {
-        return "The cost of the flight to Paris.";
+/**
+ * Class of concrete BookingFlight service
+ */
+class ParisBookingFlight implements AbstractBookingFlight
+{
+    public function getPriceFlight(): string
+    {
+        return 'The cost of the flight to Paris.<br/>';
     }
 }
 
 /**
  * Interface of BookingHotel service
  */
-interface AbstractBookingHotel {
-    public function getPriceHotel(): float 
+interface AbstractBookingHotel
+{
+    public function getPriceHotel(): string;
 }
 
 /**
  * Class of concrete BookingHotel service
  */
-class RomeBookingHotel implements AbstractBookingHotel {
-    public function getPriceHotel(): float {
-        return "The hotel room price in Rome.";
+class RomeBookingHotel implements AbstractBookingHotel
+{
+    public function getPriceHotel(): string
+    {
+        return 'The hotel room price in Rome.<br/>';
     }
 }
 
-class ParisBookingHotel implements AbstractBookingHotel {
-    public function getPriceHotel(): float {
-        return "The hotel room price in Paris.";
+/**
+ * Class of concrete BookingHotel service
+ */
+class ParisBookingHotel implements AbstractBookingHotel
+{
+    public function getPriceHotel(): string
+    {
+        return 'The hotel room price in Paris.<br/>';
     }
 }
 
 /**
  * Interface of HireCar service
  */
-interface AbstractHireCar {
-    public function getPriceCar(): float 
+interface AbstractHireCar
+{
+    public function getPriceCar(): string; 
 }
 
 /**
  * Class of concrete HireCar service
  */
-class RomeHireCar implements AbstractHireCar {
-    public function getPriceCar(): float {
-        return "The car hire cost in Rome.";
+class RomeHireCar implements AbstractHireCar
+{
+    public function getPriceCar(): string
+    {
+        return 'The car hire cost in Rome.<br/>';
     }
 }
 
-class ParisHireCar implements AbstractHireCar {
-    public function getPriceCar(): float {
-        return "The car hire cost in Paris.";
+/**
+ * Class of concrete HireCar service
+ */
+class ParisHireCar implements AbstractHireCar
+{
+    public function getPriceCar(): string
+    {
+        return 'The car hire cost in Paris.<br/>';
     }
 }
 
 /**
  * Call Abstract Factory
  */
-function client(AbstractBookingFactory $booking) {
-    $bookingFlight = $booking -> bookingFlight();
-    $bookingHotel = $booking -> bookingHotel();
-    $hireCar = $booking -> hireCar();
+function client(AbstractBookingFactory $booking)
+{
+	$bookingFlight = $booking->bookingFlight();
+	$bookingHotel = $booking->bookingHotel();
+	$hireCar = $booking->hireCar();
 
-    echo $bookingHotel -> getPriceHotel()
+	return $bookingFlight->getPriceFlight() . $bookingHotel->getPriceHotel() . $hireCar->getPriceCar();
 }
 
-client(new RomeFactory);
-client(new ParisFactory);
+$tour1 = client(new RomeFactory);
+$tour2 = client(new ParisFactory);
+print_r('tour1 = ' . $tour1);
+print_r('tour2 = ' . $tour2);
