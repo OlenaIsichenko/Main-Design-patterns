@@ -3,34 +3,33 @@
 /**
  * Singleton class
  */
-class HireCar {
-    private $car;
-    private $alreadyHiredCar = FALSE;
-    private $model = "Ford";
-    
+class HireCar 
+{   
+    private static $alreadyHiredCar = FALSE;
+     
     /**
     * Hire a car
-    */
-    static function hireCar() {
-        if (FALSE == self::$alreadyHiredCar) {
-            if (NULL == self::$car) {
-                self::$car = new HireCar();
-            }
-            self::$alreadyHiredCar = TRUE;
-            return self::$car;
-        } else {
-            return NULL;
-        }
+    */      
+    public static function hireNewCar()
+    {
+        if (FALSE === self::$alreadyHiredCar) {
+            print_r("Here is you car. ");
+        } else {       
+            print_r("You have already hired a car. ");   
+        }  
     }
 
-  	/**
-    * Return a car
+    /**
+    * Get the model of a car
     */
-    function getCar() {
-        return $this->model;
+    public static function getCar() 
+	{
+        $model = "Ford";
+        print_r("Your car is " . $model . ".");
     }
 }
 
-$car = HireCar::hireCar();
-$model = $car->getCar();
-var_dump($model);
+$car = HireCar::hireNewCar();
+$model = HireCar::getCar();
+print_r($model);
+print_r($car);
