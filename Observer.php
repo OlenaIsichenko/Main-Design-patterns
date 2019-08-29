@@ -1,55 +1,100 @@
 <?php
 
-class Subscription implements \SplSubject {
+interface Observer 
+{
+    public function subscribe(Subject $subscriber);
+    public function unsubscribe(Subject $subscriber);
+}
+
+class Subscription implements Observer  
+{
     private $subscribers;
-    private $product1;
-    private $product2;
-
-    public function __construct() {
-        $this->subscribers = new \SplObjectStorage;
+		
+    public function __construct() 
+    {
+        $this->subscribers = [];
     }
 
-    public function subscribe(\SplObserver $subscriber) {
-	$this->subscribers->subscribe($subscriber);
-	echo "You are subscribed for this product :)";
+    public function subscribe(Subject $subscriber) 
+    {
+	array_push($this->subscribers, $subscriber);
+	print_r("You are subscribed :) </br>");
     }
 
-    public function unsubscribe(\SplObserver $subscriber) {
-	$this->subscribers->unsubscribe($subscriber);
-	echo "You are unsubscribed for this product :(";
+    public function unsubscribe(Subject $subscriber) 
+    {
+	array_pop($this->subscribers);
+	print_r("You are unsubscribed :( </br>" );
     }
 
-    public function notify() {
-        foreach ($this->subscribers as $subscriber) {
-	    $subscriber->update($this);
-	}
-	    echo "We have just notified the subscribers";
+    public function notify()  
+    {
+	foreach ($this->subscribers as $subscriber) {
+            $subscriber->update();
+	    print_r("We have just notified the subscriber. </br>");
+        }
     }
+}
 
-    public function mainLogic() {
-	$this->product1 = rand(0, 5);
-	$this->product2 = rand(0, 10);
+interface Subject
+{
+    public function update();
+}
 
-	$this->notify();
-	echo "Today we have {$this->product1} of product1 and {$this->product2} of product2.";
+/**
+ *  Concrete observers classes
+ */
+class ConcreteSubscriberA implements Subject
+{
+    private $product;
+	
+    public function __construct($product) 
+    {
+        $this->product = $product;
+        print_r('Today we have ' . $product . ' item(s)' . '</br>');
+    }
+	
+    public function update() 
+    {
+	if ($this->product > 1) {
+	    print_r('Your productA is available now </br>');
+        } 
     }
 }
 
 /**
-*  Concrete observers classes
-*/
-class ConcreteSubscriberA implements \SplObserver {
-    public function update(\SplSubject $subscription) {
-	if ($subscription->product1 > 1) {
-	    echo "Your {$subscription->product1} is available now";
-	}
+ *  Concrete observers classes
+ */
+class ConcreteSubscriberB implements Subject
+{
+    private $product;
+    
+    public function __construct($product) 
+    {
+        $this->product = $product;
+        print_r('Today we have ' . $product . ' item(s)' . '</br>');
+    }
+    
+    public function update() 
+    {
+        if ($this->product >= 5) {
+            print_r('Your productB is available now </br>');
+        } 
     }
 }
 
-class ConcreteSubscriberB implements \SplObserver {
-    public function update(\SplSubject $subscription) {
-	if ($subscription->product2 >= 5) {
-	    echo "Your {$subscription->product2} is available now";
-	}
-    }
-}
+$Subscription = new Subscription();
+$SubscriberA =  new ConcreteSubscriberA(rand(0, 5));
+$SubscriberB =  new ConcreteSubscriberB(rand(5, 15));
+
+$Subscription->subscribe($SubscriberA);
+$Subscription->subscribe($SubscriberA);
+$Subscription->subscribe($SubscriberB);
+$Subscription->subscribe($SubscriberA);
+$Subscription->subscribe($SubscriberB);
+$Subscription->subscribe($SubscriberA);
+
+$Subscription->unsubscribe($SubscriberA);
+$Subscription->unsubscribe($SubscriberB);
+
+$Subscription->notify();
