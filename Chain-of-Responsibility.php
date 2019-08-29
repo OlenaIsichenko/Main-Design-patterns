@@ -1,101 +1,83 @@
 <?php
 
-abstract class cashDispenser {
+abstract class CashDispenser 
+{
+    protected $nextStep;
 
-    public function step();
-    public function nextStep();    
+    abstract public function showMessage($msg);
+
+    public function step($next)
+    {
+         $this->nextStep = $next;
+    }
+    public function nextStep()
+    {
+         return $this->nextStep;
+    }    
 }
 
-class chooseLanguage extends cashDispenser {
-
-    private $step = [
-        ['language' => 'english'],
-        ['language' => 'russian'],
-        ['language' => 'ukrainian']
-    ];
-    private $nextStep;
-    
-    function step() {
-        return this->step;
-    }
-
-    function nextStep() {
-        if(NULL != $this->step) {
-            return this->nextStep;
+class chooseLanguage extends cashDispenser 
+{
+    public function showMessage($msg)
+    {
+        if($msg == 'lang') {
+            print_r('Please, choose the language. </br>');
         } else {
-            return 'Please choose language';       
+             if ($this->nextStep()) {
+                $this->nextStep()->showMessage($msg);
+             }
         }
     }
 }
 
-class chooseCacheOrRest extends cashDispenser {
-
-    private $step = ['cache', 'rest'];
-    private $nextStep;
-    
-    function step() {
-        return this->step;
-    }
-
-    function nextStep() {
-        if(NULL != $this->step) {
-            return this->nextStep;
+class chooseCacheOrRest extends cashDispenser 
+{
+     public function showMessage($msg)
+    {
+        if($msg == 'choice') {
+            print_r('Please, choose cache or rest of money. </br>');
         } else {
-            return 'Please choose cache or rest of money';  
+             if ($this->nextStep()) {
+                $this->nextStep()->showMessage($msg);
+            }
         }
     }
 }
 
-class chooseAmountOfMoney extends cashDispenser {
-
-    private $step = ['propose', 'choose_yourself'];
-    private $nextStep;
-    
-    function step() {
-        return this->step;
-    }
-
-    function nextStep() {
-        if(NULL != $this->step) {
-            return this->nextStep;
+class chooseAmountOfMoney extends cashDispenser 
+{
+    public function showMessage($msg)
+    {
+        if($msg == 'amount') {
+			print_r('Please, choose proposed cache or choose yourself. </br>');
         } else {
-            return 'Please choose proposed cache or choose yourself';  
+             if ($this->nextStep()) {
+                $this->nextStep()->showMessage($msg);
+            }
         }
     }
 }
 
-class choosePrintCheck extends cashDispenser {
-
-    private $step = ['print check', 'do not print check'];
-    private $nextStep;
-    
-    function step() {
-        return this->step;
-    }
-
-    function nextStep() {
-        if(NULL != $this->step) {
-            return this->nextStep;
+class choosePrintCheck extends cashDispenser 
+{
+    public function showMessage($msg)
+    {
+        if($msg == 'check') {
+            print_r('Please, choose to print the check or not. </br>');
         } else {
-            return 'Please choose to print the check or not';
+             if ($this->nextStep()) {
+                $this->nextStep()->showMessage($msg);
+            }
         }
     }
 }
 
-class createChoice extends cashDispenser {
+$cashDispenser = new chooseLanguage();
+$cashDispenser->step(new chooseCacheOrRest());
+$cashDispenser = new chooseAmountOfMoney();
+$cashDispenser->step(new choosePrintCheck());
 
-    private $step = ['continue work', 'log out'];
-    private $nextStep;
-    
-    function step() {
-        return this->step;
-    }
-
-    function nextStep() {
-        if(NULL != $this->step) {
-            return this->nextStep;
-        } else {
-            return 'Please choose the step';   
-        }
-    }
-}
+$cashDispenser->showMessage('lang');
+$cashDispenser->showMessage('choice');
+$cashDispenser->showMessage('amount');
+$cashDispenser->showMessage('check');
